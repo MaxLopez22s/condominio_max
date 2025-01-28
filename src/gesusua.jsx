@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './styles/gesusua.css';
+import './styles/pagos.css';
 import * as XLSX from 'xlsx';
 
 function Gesusua() {
-  // Datos iniciales simulados
-  const [usuarios, setUsuarios] = useState([
-    { nombre: 'Carlos López', telefono: '555-123-4567', correo: 'carlos.lopez@example.com', rol: 'Residente' },
-    { nombre: 'Andrea Ramírez', telefono: '555-234-5678', correo: 'andrea.ramirez@example.com', rol: 'Administrador' },
-    { nombre: 'David Gómez', telefono: '555-345-6789', correo: 'david.gomez@example.com', rol: 'Visitante' },
-    { nombre: 'Sofía Torres', telefono: '555-456-7890', correo: 'sofia.torres@example.com', rol: 'Residente' },
-    { nombre: 'Luis Hernández', telefono: '555-567-8901', correo: 'luis.hernandez@example.com', rol: 'Administrador' },
-  ]);
+  const [usuarios, setUsuarios] = useState([]);
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
   const [correo, setCorreo] = useState('');
   const [rol, setRol] = useState('Residente');
   const [busqueda, setBusqueda] = useState('');
 
-  const handleAgregarUsuario = (e) => {
+  // Función para obtener los usuarios desde la base de datos (con API)
+  const fetchUsuarios = async () => {
+    try {
+      const response = await fetch('/api/usuarios');  // Aquí se realiza la llamada a la API
+      const data = await response.json();
+      setUsuarios(data);
+    } catch (error) {
+      console.error('Error al cargar los usuarios:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsuarios();
+  }, []);
+
+  const handleAgregarUsuario = async (e) => {
     e.preventDefault();
 
     if (!nombre || !telefono || !correo || !rol) {
@@ -27,7 +36,18 @@ function Gesusua() {
     }
 
     const nuevoUsuario = { nombre, telefono, correo, rol };
-    setUsuarios([...usuarios, nuevoUsuario]);
+    
+    try {
+      await fetch('/api/usuarios', {  // Envía la solicitud para agregar el usuario a la base de datos
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nuevoUsuario),
+      });
+
+      fetchUsuarios();  // Recarga la lista de usuarios
+    } catch (error) {
+      console.error('Error al agregar usuario:', error);
+    }
 
     // Limpiar los campos
     setNombre('');
@@ -36,9 +56,15 @@ function Gesusua() {
     setRol('Residente');
   };
 
-  const handleEliminarUsuario = (index) => {
-    const nuevosUsuarios = usuarios.filter((_, i) => i !== index);
-    setUsuarios(nuevosUsuarios);
+  const handleEliminarUsuario = async (id) => {
+    try {
+      await fetch(`/api/usuarios/${id}`, {  // Envía la solicitud para eliminar el usuario
+        method: 'DELETE',
+      });
+      fetchUsuarios();  // Recarga la lista de usuarios
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+    }
   };
 
   const handleDescargarExcel = () => {
@@ -66,6 +92,11 @@ function Gesusua() {
           <Link to="/portonesa" className="nav-link">Portones</Link>
           <Link to="/menuadmin" className="nav-link">Menú</Link>
         </div>
+        {/* Botón de notificaciones que redirige a notificaciones.jsx */}
+                <Link to="/notificaciones" className="notifications">
+                  <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
+                  <span className="notification-badge">3</span> {/* Aquí puedes cambiar el número de notificaciones */}
+                </Link>
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
         </div>
@@ -143,7 +174,7 @@ function Gesusua() {
                 <td>{usuario.rol}</td>
                 <td>
                   <button
-                    onClick={() => handleEliminarUsuario(index)}
+                    onClick={() => handleEliminarUsuario(usuario._id)}
                     className="delete-button"
                   >
                     Eliminar

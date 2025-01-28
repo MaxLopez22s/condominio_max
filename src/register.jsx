@@ -7,20 +7,44 @@ function Register() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');  // Nueva variable para "Confirmar Contraseña"
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  
+
   const navigate = useNavigate();
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!name || !phone || !password || !confirmPassword) {
       setErrorMessage('Por favor, completa todos los campos.');
     } else if (password !== confirmPassword) {
       setErrorMessage('Las contraseñas no coinciden.');
     } else {
       setErrorMessage('');
-      alert('Registro completado');
-      navigate('/');  // Redirige al usuario al inicio (index.jsx)
+      
+      // Enviar datos de registro al backend
+      try {
+        const response = await fetch('http://localhost:5000/api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+            password, // Solo para almacenar si necesitas hacer hashing en el backend
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          alert('Registro completado');
+          navigate('/');  // Redirige al inicio tras el registro
+        } else {
+          setErrorMessage('Hubo un error al registrar el usuario.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setErrorMessage('Hubo un error al conectarse al servidor.');
+      }
     }
   };
 

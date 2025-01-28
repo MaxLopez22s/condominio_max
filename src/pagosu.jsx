@@ -5,11 +5,7 @@ import './styles/pagos.css';  // Asegúrate de importar el archivo CSS
 function Pagosu() {
   const [monto, setMonto] = useState('');  // Manejo del estado para el monto
   const [estadoPago, setEstadoPago] = useState('Pendiente');  // Estado inicial como 'Pendiente'
-  const [registrosPago, setRegistrosPago] = useState([
-    { usuario: "1234567890", monto: "150", estado: "Pagado", fecha: "2025-01-18 15:30:00" },
-    { usuario: "1234567891", monto: "250", estado: "Pendiente", fecha: "2025-01-19 10:00:00" },
-    { usuario: "1234567892", monto: "300", estado: "Pagado", fecha: "2025-01-17 18:15:00" },
-  ]); // Datos simulados
+  const [registrosPago, setRegistrosPago] = useState([]);  // Se elimina la lista de pagos simulados
 
   const handleMontoChange = (event) => {
     setMonto(event.target.value);  // Actualiza el estado cuando el usuario cambia el monto
@@ -47,6 +43,11 @@ function Pagosu() {
           <Link to="/multasu" className="nav-link">Multas</Link>
           <Link to="/portonesu" className="nav-link">Portones</Link>
         </div>
+        {/* Botón de notificaciones que redirige a notificaciones.jsx */}
+        <Link to="/notificaciones" className="notifications">
+          <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
+          <span className="notification-badge">3</span> {/* Aquí puedes cambiar el número de notificaciones */}
+        </Link>
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
         </div>

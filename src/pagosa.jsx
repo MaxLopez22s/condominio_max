@@ -5,11 +5,7 @@ import './styles/pagos.css';
 function Pagosu() {
   const [monto, setMonto] = useState('');
   const [estadoPago, setEstadoPago] = useState('Pendiente');
-  const [registrosPago, setRegistrosPago] = useState([
-    { usuario: "1234567890", monto: "150", estado: "Pagado", fecha: "2025-01-18 15:30:00" },
-    { usuario: "1234567891", monto: "250", estado: "Pendiente", fecha: "2025-01-19 10:00:00" },
-    { usuario: "1234567892", monto: "300", estado: "Pagado", fecha: "2025-01-17 18:15:00" },
-  ]);
+  const [registrosPago, setRegistrosPago] = useState([]); // Eliminados los datos simulados
   const [editIndex, setEditIndex] = useState(null);
   const [editMonto, setEditMonto] = useState('');
   const [editEstadoPago, setEditEstadoPago] = useState('');
@@ -57,8 +53,12 @@ function Pagosu() {
           <Link to="/menuadmin" className="nav-link">Menú</Link>
           <Link to="/multasa" className="nav-link">Multas</Link>
           <Link to="/portonesa" className="nav-link">Portones</Link>
-          <Link to="/gesusua" className="nav-link">Gestión de Usuarios</Link> {/* Botón para gestionar usuarios */}
+          <Link to="/gesusua" className="nav-link">Gestión de Usuarios</Link>
         </div>
+        <Link to="/notificaciones" className="notifications">
+          <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
+          <span className="notification-badge">3</span>
+        </Link>
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
         </div>

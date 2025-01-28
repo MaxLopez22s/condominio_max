@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './styles/portones.css'; // CSS para los estilos de Portones
+import './styles/pagos.css';
 
 function Portones() {
   // Estado para los menús desplegables y la tabla
@@ -9,11 +10,7 @@ function Portones() {
   const [telefono, setTelefono] = useState('');
   const [estado, setEstado] = useState(''); // Estado (Otorgado / Revocado)
   
-  const [tablaDatos, setTablaDatos] = useState([
-    { torre: 'Torre 1', departamento: '101', telefono: '555-123-4567', estado: 'Otorgado' },
-    { torre: 'Torre 2', departamento: '102', telefono: '555-765-4321', estado: 'Revocado' },
-    { torre: 'Torre 3', departamento: '103', telefono: '555-987-6543', estado: 'Otorgado' }
-  ]);
+  const [tablaDatos, setTablaDatos] = useState([]); // Cambiado a un arreglo vacío
 
   // Función para agregar los datos a la tabla
   const agregarDato = () => {
@@ -42,6 +39,11 @@ function Portones() {
           <Link to="/multasu" className="nav-link">Multas</Link>
           <Link to="/menuusuario" className="nav-link">Menú</Link>
         </div>
+        {/* Botón de notificaciones que redirige a notificaciones.jsx */}
+        <Link to="/notificaciones" className="notifications">
+          <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
+          <span className="notification-badge">3</span> {/* Aquí puedes cambiar el número de notificaciones */}
+        </Link>
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
         </div>

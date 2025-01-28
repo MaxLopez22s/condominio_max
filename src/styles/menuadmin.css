@@ -139,4 +139,13 @@
     }
   }
 
-  
+  /* Asegura que el color de la notificación se aplique correctamente */
+.notificacion-item {
+  list-style-type: none;
+  padding: 10px;
+  background-color: #e7e7e7;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  color: black !important; /* Forzar que el color negro se aplique */
+}

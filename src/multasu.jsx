@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './styles/multas.css';
+import './styles/pagos.css';
 import * as XLSX from 'xlsx';
 
 function Multas() {
@@ -8,11 +9,7 @@ function Multas() {
   const [motivo, setMotivo] = useState('');
   const [department, setDepartment] = useState('alquiler');
   const [usuario, setUsuario] = useState('');
-  const [multas, setMultas] = useState([
-    { usuario: '1234567890', motivo: 'Falta de pago', importe: '500', fecha: '2025-01-19' },
-    { usuario: '9876543210', motivo: 'Daños en propiedad común', importe: '250', fecha: '2025-01-18' },
-    { usuario: '5555555555', motivo: 'Ruidos excesivos', importe: '150', fecha: '2025-01-17' }
-  ]);
+  const [multas, setMultas] = useState([]);
 
   const handleImporteChange = (e) => setImporte(e.target.value);
   const handleMotivoChange = (e) => setMotivo(e.target.value);
@@ -32,7 +29,7 @@ function Multas() {
       usuario,
       motivo,
       importe,
-      fecha: new Date().toISOString().split('T')[0]
+      fecha: new Date().toISOString().split('T')[0],
     };
 
     setMultas([...multas, nuevaMulta]);
@@ -59,6 +56,11 @@ function Multas() {
           <Link to="/menuusuario" className="nav-link">Menú</Link>
           <Link to="/portonesu" className="nav-link">Portones</Link>
         </div>
+        {/* Botón de notificaciones que redirige a notificaciones.jsx */}
+        <Link to="/notificaciones" className="notifications">
+          <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
+          <span className="notification-badge">3</span> {/* Aquí puedes cambiar el número de notificaciones */}
+        </Link>
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
         </div>

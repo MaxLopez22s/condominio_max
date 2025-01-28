@@ -11,6 +11,7 @@ import Pagosa from './pagosa';
 import Multasa from './multasa'; 
 import Portonesa from './portonesa'; 
 import Gesusua from './gesusua'; // Nueva importación
+import Notificaciones from './notificaciones'; // Nueva importación
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/multasa" element={<Multasa />} /> 
         <Route path="/portonesa" element={<Portonesa />} /> 
         <Route path="/gesusua" element={<Gesusua />} /> {/* Nueva ruta para Gesusua */}
+        <Route path="/notificaciones" element={<Notificaciones />} /> {/* Nueva ruta para Notificaciones */}
       </Routes>
     </Router>
   );
