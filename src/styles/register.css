@@ -1,0 +1,159 @@
+/* Aseguramos que el body y el html cubran toda la altura */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Contenedor principal con fondo */
+.container {
+  background-image: url('./Imagenes/condominios.jpg'); /* Ruta corregida */
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Asegura que ocupe el 100% de la pantalla */
+  display: flex;
+  justify-content: center;  /* Centrado horizontal */
+  align-items: center;      /* Centrado vertical */
+  color: #fff;
+}
+
+/* Navbar - Barra de navegación */
+.navbar {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #003366;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute; /* Fija el navbar en la parte superior */
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.logo {
+  width: 50px;  /* Ajusta el tamaño del logo */
+}
+
+.nav-links a {
+  color: #fff;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para el Registro */
+.register-container {
+  background-color: rgba(0, 0, 0, 0.6);  /* Fondo semi-transparente */
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  margin: 80px auto 0 auto;  /* Ajuste de margen para mover el cuadro hacia abajo */
+  position: relative; /* Necesario para centrar el formulario dentro */
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  text-align: left;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 12px;
+  margin-top: 5px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.register-button {
+  padding: 12px 20px;
+  background-color: #003366;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.register-button:hover {
+  background-color: #002244;
+}
+
+/* Contenedor del checkbox para la contraseña */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra el contenido si es necesario */
+  margin-bottom: 20px;
+}
+
+.checkbox-group input {
+  margin-right: 10px;
+}
+
+.checkbox-group label {
+  font-size: 1em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: red;
+  font-size: 1em;
+  margin-top: 15px;
+}
+
+/* Estilos para el Alert */
+.alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 90%;
+  max-width: 400px;
+  z-index: 1000;
+  display: none;  /* Inicialmente oculto */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert.active {
+  display: flex;  /* Mostrar el alert cuando tenga la clase "active" */
+}
+
+.alert button {
+  background: none;
+  border: none;
+  color: #721c24;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.alert button:hover {
+  color: #f44336;
+}

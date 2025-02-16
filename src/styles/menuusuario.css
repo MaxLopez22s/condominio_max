@@ -1,0 +1,151 @@
+/* Contenedor general */
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;  /* Color de fondo */
+  }
+  
+  /* Navbar */
+  .navbar {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #003366;
+    display: flex;
+    justify-content: space-between; /* Alinea los enlaces a la izquierda y el botón a la derecha */
+    align-items: center;
+  }
+  
+  .logo {
+    width: 50px;
+  }
+  
+  .nav-links {
+    display: flex;
+    justify-content: flex-start; /* Enlaces alineados a la izquierda */
+    gap: 20px; /* Espacio entre los enlaces */
+  }
+  
+  .nav-link {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #003366;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    text-decoration: none;
+  }
+  
+  .nav-link:hover {
+    background-color: #002244;
+  }
+  
+  /* Alineación del botón "Cerrar sesión" */
+  .logout-link {
+    margin-left: auto;  /* Empuja el enlace de cerrar sesión a la derecha */
+  }
+  
+  .logout {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #003366;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    text-decoration: none;
+  }
+  
+  .logout:hover {
+    background-color: #002244;
+  }
+  
+  /* Contenedor del Texto del Menú */
+  .menu-text-container {
+    margin-top: 80px; /* Más separación del navbar */
+    text-align: center;
+  }
+  
+  h2 {
+    color: #003366;
+    font-size: 2em; /* Título más grande */
+  }
+  
+  /* Contenedor de los botones */
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;  /* Aumento de espacio entre los botones */
+    flex-wrap: wrap;
+    margin-top: 40px; /* Espacio de separación del título */
+  }
+  
+  /* Estilo de los botones */
+  .menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .menu-image {
+    width: 80px;  /* Tamaño de las imágenes */
+    margin-bottom: 20px;  /* Separación entre la imagen y el botón */
+  }
+  
+  .menu-button {
+    text-decoration: none;
+    padding: 20px 30px;  /* Aumento del tamaño del botón */
+    font-weight: bold;
+    font-size: 1.2em;  /* Tamaño de texto mayor */
+    text-align: center;
+    color: white;
+    border-radius: 4px;
+    width: 250px;
+    display: inline-block;  /* Asegurando que los botones se muestren como bloque */
+  }
+  
+  .menu-button:hover {
+    opacity: 0.8;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Colores para los botones */
+  .menu-button:nth-child(1) {
+    background-color: #007bff; /* Pagos */
+  }
+  
+  .menu-button:nth-child(2) {
+    background-color: #d9534f; /* Multas */
+  }
+  
+  .menu-button:nth-child(3) {
+    background-color: #28a745; /* Portones */
+  }
+  
+  /* Ajustes para pantallas más pequeñas */
+  @media (max-width: 768px) {
+    .buttons-container {
+      flex-direction: column;  /* Apilan los botones verticalmente */
+      gap: 20px;
+    }
+  
+    .menu-button {
+      width: 100%;  /* Los botones ocupan todo el ancho */
+      padding: 15px;
+    }
+  }
+
+  /* Asegura que el color de la notificación se aplique correctamente */
+.notificacion-item {
+  list-style-type: none;
+  padding: 10px;
+  background-color: #e7e7e7;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  color: black !important; /* Forzar que el color negro se aplique */
+}

@@ -1,0 +1,62 @@
+/* Estilo para el mensaje cuando no hay notificaciones */
+.no-notificaciones {
+    color: #ff6347;  /* Color rojo anaranjado */
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Estilo para la lista de notificaciones */
+  .notifications-list {
+    padding: 0;
+    list-style-type: none;  /* Eliminar puntos */
+    margin-top: 20px;
+  }
+  
+  /* Estilo individual para cada notificación */
+  .notification-item {
+    background-color: #f1f1f1;  /* Fondo gris claro */
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;  /* Borde gris suave */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Sombra ligera */
+  }
+  
+  /* Estilo para el botón de eliminar */
+  .eliminar-btn {
+    background-color: #ff6347;  /* Color rojo anaranjado */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .eliminar-btn:hover {
+    background-color: #ff4500;  /* Un tono más fuerte de rojo al pasar el mouse */
+  }
+  
+  /* Estilo para las notificaciones como "Recibido" o "Pendiente" */
+  .notification-status {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff8c00;  /* Naranja */
+  }
+  
+  /* Badge que muestra la cantidad de notificaciones */
+  .notification-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 5px 10px;
+  }
+  
