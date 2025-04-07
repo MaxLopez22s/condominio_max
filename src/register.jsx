@@ -12,61 +12,64 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
     if (!name || !phone || !password || !confirmPassword) {
       setErrorMessage('Por favor, completa todos los campos.');
-    } else if (password !== confirmPassword) {
-      setErrorMessage('Las contraseñas no coinciden.');
-    } else {
-      setErrorMessage('');
-      
-      // Enviar datos de registro al backend
-      try {
-        const response = await fetch('http://localhost:5000/api/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            phone,
-            password, // Solo para almacenar si necesitas hacer hashing en el backend
-          }),
-        });
+      return;
+    }
 
-        if (response.ok) {
-          const data = await response.json();
-          alert('Registro completado');
-          navigate('/');  // Redirige al inicio tras el registro
-        } else {
-          setErrorMessage('Hubo un error al registrar el usuario.');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        setErrorMessage('Hubo un error al conectarse al servidor.');
+    if (password !== confirmPassword) {
+      setErrorMessage('Las contraseñas no coinciden.');
+      return;
+    }
+
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('http://localhost:4000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombre: name,
+          telefono: phone,
+          contraseña: password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        navigate('/');
+      } else {
+        setErrorMessage(data.mensaje || 'Hubo un error al registrar el usuario.');
       }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('Hubo un error al conectarse al servidor.');
     }
   };
 
   return (
     <div className="container">
-      {/* Navbar */}
       <nav className="navbar">
-        <img src="src/Imagenes/file.png" alt="Logo" className="logo" />
+        {/* Imagen en carpeta public */}
+        <img src="/Imagenes/file.png" alt="Logo" className="logo" />
         <div className="nav-links">
           <a href="/" className="nav-link">Iniciar sesión</a>
           <a href="/register" className="nav-link">Registrarse</a>
         </div>
       </nav>
 
-      {/* Formulario de Registro */}
       <div className="register-container">
         <h2>Crear Cuenta</h2>
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <form className="register-form">
-          {/* Nombre Completo */}
+        <form className="register-form" onSubmit={handleRegister}>
           <div className="form-group">
             <label htmlFor="name">Nombre completo</label>
             <input
@@ -80,7 +83,6 @@ function Register() {
             />
           </div>
 
-          {/* Número de Teléfono */}
           <div className="form-group">
             <label htmlFor="phone">Número de teléfono</label>
             <input
@@ -94,7 +96,6 @@ function Register() {
             />
           </div>
 
-          {/* Contraseña */}
           <div className="form-group">
             <label htmlFor="password">Contraseña</label>
             <input
@@ -108,7 +109,6 @@ function Register() {
             />
           </div>
 
-          {/* Repetir Contraseña */}
           <div className="form-group">
             <label htmlFor="confirm-password">Repetir Contraseña</label>
             <input
@@ -122,7 +122,7 @@ function Register() {
             />
           </div>
 
-          <button type="button" className="register-button" onClick={handleRegister}>
+          <button type="submit" className="register-button">
             Registrarse
           </button>
         </form>

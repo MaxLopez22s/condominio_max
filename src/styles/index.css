@@ -5,17 +5,17 @@ html, body {
 }
 
 /* Contenedor principal con fondo */
-.container {
-  background-image: url('./Imagenes/condominios.jpg'); /* Ruta corregida */
+/*.container {
+  background-image: url('./Imagenes/condominios.jpg'); /Ruta corregida/
   background-size: cover;
   background-position: center;
-  height: 100vh;  /* Asegura que ocupe el 100% de la pantalla */
+  height: 100vh;  /* Asegura que ocupe el 100% de la pantalla 
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* Centrado vertical */
-  align-items: center;      /* Centrado horizontal */
+  justify-content: center;  /Centrado vertical/ 
+  align-items: center;      /Centrado horizontal/ 
   color: #fff;
-}
+}*/
 
 /* Navbar - Barra de navegación */
 .navbar {

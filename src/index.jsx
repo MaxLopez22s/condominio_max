@@ -7,7 +7,6 @@ function Index() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -17,33 +16,34 @@ function Index() {
 
   const showAlert = (message) => {
     const alert = document.getElementById('alert');
-    alert.textContent = message;
-    alert.classList.add('active');
-    setTimeout(() => {
-      alert.classList.remove('active');
-    }, 3000);
+    if (alert) {
+      alert.textContent = message;
+      alert.classList.add('active');
+      setTimeout(() => {
+        alert.classList.remove('active');
+      }, 3000);
+    }
   };
 
-  // Verificar si el token está expirado
   const verificarTokenExpirado = () => {
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      return true; // Si no hay token, está "expirado"
+    if (!token) return true;
+
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const fechaExpiracion = new Date(payload.exp * 1000);
+      return fechaExpiracion < new Date();
+    } catch (error) {
+      console.error("Error al decodificar el token", error);
+      return true;
     }
-
-    const payload = JSON.parse(atob(token.split(".")[1])); // Decodificar el JWT
-    const fechaExpiracion = new Date(payload.exp * 1000);  // La fecha de expiración del token
-
-    return fechaExpiracion < new Date();  // Si el token ha expirado
   };
 
-  // Función para renovar el token si ha expirado
   const renovarToken = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      // Si no hay token, redirige al login
       window.location.href = "/login";
       return;
     }
@@ -58,29 +58,28 @@ function Index() {
 
       if (res.ok) {
         const data = await res.json();
-        localStorage.setItem("token", data.token);  // Actualizar el token en localStorage
+        localStorage.setItem("token", data.token);
         console.log("Token renovado con éxito");
       } else {
         console.log("No se pudo renovar el token");
-        window.location.href = "/login";  // Si la renovación falla, redirige al login
+        window.location.href = "/login";
       }
     } catch (error) {
       console.error("Error al renovar el token", error);
-      window.location.href = "/login";  // Si hay error, redirige al login
+      window.location.href = "/login";
     }
   };
 
-  // Función para manejar el inicio de sesión o la renovación del token
   const manejarSesion = async () => {
     if (verificarTokenExpirado()) {
-      await renovarToken();  // Intentar renovar el token si ha expirado
+      await renovarToken();
     } else {
       console.log("El token está activo");
     }
   };
 
   useEffect(() => {
-    manejarSesion(); // Verificar y renovar el token al cargar el componente
+    manejarSesion();
   }, []);
 
   const handleLogin = async (e) => {
@@ -121,7 +120,8 @@ function Index() {
   return (
     <div className="container">
       <nav className="navbar">
-        <img src="src/Imagenes/file.png" alt="Logo" className="logo" />
+        {/* Ruta correcta para la imagen */}
+        <img src="/Imagenes/file.png" alt="Logo" className="logo" />
         <div className="nav-links">
           <a href="/" className="nav-link">Iniciar sesión</a>
           <a href="/register" className="nav-link">Registrarse</a>
@@ -135,7 +135,7 @@ function Index() {
       <div className="login-container">
         <h2>Iniciar sesión</h2>
 
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="phone">Número de teléfono</label>
             <input
@@ -168,7 +168,7 @@ function Index() {
             />
             <label htmlFor="show-password">Mostrar contraseña</label>
           </div>
-          <button type="button" className="login-button" onClick={handleLogin}>
+          <button type="submit" className="login-button">
             Entrar
           </button>
         </form>

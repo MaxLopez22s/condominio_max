@@ -13,6 +13,7 @@ import Multasa from './multasa';
 import Portonesa from './portonesa';
 import Gesusua from './gesusua'; // Nueva importación
 import Notificaciones from './notificaciones'; // Nueva importación
+import { Link } from 'react-router-dom';
 
 // Conectar al servidor de WebSockets
 const socket = io('http://localhost:4000'); // Asegúrate de que el puerto coincida con el backend
@@ -38,7 +39,7 @@ function App() {
           <div>
             {/* Barra de notificaciones */}
             <Link to="/notificaciones">
-              <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" />
+              <img src="/Imagenes/notificaciones.png" alt="Notificaciones" />
               <span className="notification-badge">{notificaciones.length}</span>
             </Link>
           </div>
