@@ -1,0 +1,22 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Entornos virtuales
+env/
+venv/
+.venv/
+
+# Archivos de configuración locales
+.env
+*.sqlite3
+
+# Logs y otros
+*.log
+.DS_Store
