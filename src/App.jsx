@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import io from 'socket.io-client';
-import Index from './index';
+import Index from './index';  // Componente de inicio
 import Register from './register';
 import MenuUsuario from './menuusuario';
 import MenuAdmin from './menuadmin';
@@ -11,18 +11,22 @@ import Portonesu from './portonesu';
 import Pagosa from './pagosa';
 import Multasa from './multasa';
 import Portonesa from './portonesa';
-import Gesusua from './gesusua'; // Nueva importación
-import Notificaciones from './notificaciones'; // Nueva importación
-import { Link } from 'react-router-dom';
+import Gesusua from './gesusua';
+import Notificaciones from './notificaciones';
 
-// Conectar al servidor de WebSockets
-const socket = io('http://localhost:4000'); // Asegúrate de que el puerto coincida con el backend
+const socket = io('http://localhost:4000');
 
 function App() {
   const [notificaciones, setNotificaciones] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Conectar al servidor de WebSockets y recibir las notificaciones
+  // Verificar si el token existe en el localStorage al cargar la aplicación
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true); // Establecer que el usuario está autenticado
+    }
+
     socket.on('notificacionRecibida', (data) => {
       setNotificaciones((prevNotificaciones) => [...prevNotificaciones, data]);
     });
@@ -37,16 +41,18 @@ function App() {
       <div>
         <nav>
           <div>
-            {/* Barra de notificaciones */}
-            <Link to="/notificaciones">
-              <img src="/Imagenes/notificaciones.png" alt="Notificaciones" />
-              <span className="notification-badge">{notificaciones.length}</span>
-            </Link>
+            {/* Mostrar la barra de notificaciones solo si el usuario está autenticado */}
+            {isAuthenticated && (
+              <Link to="/notificaciones">
+                <img src="/Imagenes/notificaciones.png" alt="Notificaciones" />
+                <span className="notification-badge">{notificaciones.length}</span>
+              </Link>
+            )}
           </div>
         </nav>
 
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Index />} /> {/* Ruta principal */}
           <Route path="/register" element={<Register />} />
           <Route path="/menuusuario" element={<MenuUsuario />} />
           <Route path="/menuadmin" element={<MenuAdmin />} />
@@ -56,8 +62,8 @@ function App() {
           <Route path="/pagosa" element={<Pagosa />} />
           <Route path="/multasa" element={<Multasa />} />
           <Route path="/portonesa" element={<Portonesa />} />
-          <Route path="/gesusua" element={<Gesusua />} /> {/* Nueva ruta para Gesusua */}
-          <Route path="/notificaciones" element={<Notificaciones />} /> {/* Nueva ruta para Notificaciones */}
+          <Route path="/gesusua" element={<Gesusua />} />
+          <Route path="/notificaciones" element={<Notificaciones />} />
         </Routes>
       </div>
     </Router>

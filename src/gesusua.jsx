@@ -92,11 +92,6 @@ function Gesusua() {
           <Link to="/portonesa" className="nav-link">Portones</Link>
           <Link to="/menuadmin" className="nav-link">Menú</Link>
         </div>
-        {/* Botón de notificaciones que redirige a notificaciones.jsx */}
-                <Link to="/notificaciones" className="notifications">
-                  <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
-                  <span className="notification-badge">3</span> {/* Aquí puedes cambiar el número de notificaciones */}
-                </Link>
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
         </div>
