@@ -29,12 +29,6 @@ function MenuAdmin() {
           <Link to="/gesusua" className="nav-link">Gestión de Usuarios</Link>
         </div>
 
-        {/* Botón de Notificaciones */}
-        <Link to="/notificaciones" className={`notifications ${tieneNotificaciones ? "nueva" : ""}`} onClick={() => setTieneNotificaciones(false)}>
-          <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
-          {tieneNotificaciones && <span className="notification-badge"></span>}
-        </Link>
-
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
         </div>

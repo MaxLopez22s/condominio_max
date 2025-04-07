@@ -55,10 +55,6 @@ function Pagosu() {
           <Link to="/portonesa" className="nav-link">Portones</Link>
           <Link to="/gesusua" className="nav-link">Gestión de Usuarios</Link>
         </div>
-        <Link to="/notificaciones" className="notifications">
-          <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
-          <span className="notification-badge">3</span>
-        </Link>
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
         </div>
