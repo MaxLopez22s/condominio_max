@@ -40,7 +40,6 @@ function Pagosu() {
         <img src="src/Imagenes/file.png" alt="Logo" className="logo" />
         <div className="nav-links">
           <Link to="/menuusuario" className="nav-link">Menú</Link>
-          <Link to="/multasu" className="nav-link">Multas</Link>
           <Link to="/portonesu" className="nav-link">Portones</Link>
         </div>
         {/* Botón de notificaciones que redirige a notificaciones.jsx */}

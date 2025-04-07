@@ -36,7 +36,6 @@ function Portones() {
         <img src="src/Imagenes/file.png" alt="Logo" className="logo" />
         <div className="nav-links">
           <Link to="/pagosu" className="nav-link">Pagos</Link>
-          <Link to="/multasu" className="nav-link">Multas</Link>
           <Link to="/menuusuario" className="nav-link">Menú</Link>
         </div>
         {/* Botón de notificaciones que redirige a notificaciones.jsx */}

@@ -138,9 +138,6 @@
       padding: 15px;
     }
   }
-  
-  /* General - Cargar la fuente Roboto */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 /* Estilos para el cuerpo y fuente en todo el documento */
 body {

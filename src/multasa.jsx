@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './styles/multas.css';
 import './styles/pagos.css';
 import * as XLSX from 'xlsx';
+import { CSSTransition } from 'react-transition-group'; // Importamos la transición
 
 function Multas() {
   const [importe, setImporte] = useState('');
@@ -15,12 +16,16 @@ function Multas() {
   const [editMotivo, setEditMotivo] = useState('');
   const [editImporte, setEditImporte] = useState('');
 
+  const [loading, setLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [resultado, setResultado] = useState(null);
+
   const handleImporteChange = (e) => setImporte(e.target.value);
   const handleMotivoChange = (e) => setMotivo(e.target.value);
   const handleDepartmentChange = (e) => setDepartment(e.target.value);
   const handleUsuarioChange = (e) => setUsuario(e.target.value);
 
-  const handleRegistrarMulta = (e) => {
+  const handleRegistrarMulta = async (e) => {
     e.preventDefault();
 
     if (!usuario || !motivo || !importe) {
@@ -28,14 +33,30 @@ function Multas() {
       return;
     }
 
-    const nuevaMulta = {
-      usuario,
-      motivo,
-      importe,
-      fecha: new Date().toISOString().split('T')[0],
-    };
+    setLoading(true);
 
-    setMultas([...multas, nuevaMulta]);
+    try {
+      // Simulamos la llamada API para guardar la multa
+      const response = await new Promise((resolve) =>
+        setTimeout(() => resolve('Multa guardada con éxito!'), 2000)
+      );
+      setResultado(response);
+      setModalVisible(true);
+      setMultas([
+        ...multas,
+        {
+          usuario,
+          motivo,
+          importe,
+          fecha: new Date().toISOString().split('T')[0],
+        },
+      ]);
+    } catch (error) {
+      setResultado('Error al guardar la multa');
+      setModalVisible(true);
+    } finally {
+      setLoading(false);
+    }
 
     setUsuario('');
     setMotivo('');
@@ -81,11 +102,11 @@ function Multas() {
           <Link to="/pagosa" className="nav-link">Pagos</Link>
           <Link to="/menuadmin" className="nav-link">Menú</Link>
           <Link to="/portonesa" className="nav-link">Portones</Link>
-          <Link to="/gesusua" className="nav-link">Gestión de Usuarios</Link> {/* Botón para gestionar usuarios */}
+          <Link to="/gesusua" className="nav-link">Gestión de Usuarios</Link>
         </div>
         <Link to="/notificaciones" className="notifications">
           <img src="src/Imagenes/notificaciones.png" alt="Notificaciones" className="notification-icon" />
-          <span className="notification-badge">3</span> {/* Aquí puedes cambiar el número de notificaciones */}
+          <span className="notification-badge">3</span>
         </Link>
         <div className="logout-link">
           <Link to="/" className="nav-link logout">Cerrar sesión</Link>
@@ -131,7 +152,9 @@ function Multas() {
             <option value="mantenimiento">Departamento de Mantenimiento</option>
             <option value="jardineria">Departamento de Jardinería</option>
           </select>
-          <button type="submit" className="button-registrar">Registrar Multa</button>
+          <button type="submit" className="button-registrar">
+            Registrar Multa
+          </button>
         </form>
       </div>
 
@@ -201,6 +224,33 @@ function Multas() {
           Descargar Reporte Excel
         </button>
       </div>
+
+      {/* Modal de resultado con transición */}
+      <CSSTransition
+        in={modalVisible}
+        timeout={300}
+        classNames="modal"
+        unmountOnExit
+      >
+        <div className="modal">
+          <div className="modal-content">
+            <p>{resultado}</p>
+            <button onClick={() => setModalVisible(false)}>Cerrar</button>
+          </div>
+        </div>
+      </CSSTransition>
+
+      {/* Botón de carga */}
+      <CSSTransition
+        in={loading}
+        timeout={300}
+        classNames="loading-text"
+        unmountOnExit
+      >
+        <div className="loading-text">
+          Cargando...
+        </div>
+      </CSSTransition>
     </div>
   );
 }
